@@ -1,5 +1,5 @@
-import "./App.css";
-import "../bootstrap.min.css";
+import "./App.scss";
+
 import { useState } from "react";
 import Row from "../row";
 
@@ -7,15 +7,29 @@ function App() {
   const [tableItems, setTableItems] = useState([]);
   const [targetValue, setTargetValue] = useState("");
 
+  let id = 0;
+
   const addItem = () => {
-    setTableItems([...tableItems, targetValue]);
+    const newItem = {
+      id: (id += 1),
+      value: targetValue,
+    };
+    setTableItems([...tableItems, newItem]);
     setTargetValue("");
   };
+
+  const handleSort = () => {
+    const newTableItems = tableItems.sort((a, b) => b.id - a.id);
+
+    setTableItems(newTableItems);
+  };
+
   const handleChange = (e) => setTargetValue(e.target.value);
   console.log(tableItems);
+
   const view = tableItems.map((item, index) => (
     <tr>
-      <Row tableItems={item} key={index} />
+      <Row tableItem={item} key={index} />
     </tr>
   ));
 
@@ -38,7 +52,7 @@ function App() {
       <div className="table-container">
         <table className="table">
           <thead>
-            <tr>
+            <tr onClick={handleSort}>
               <th>#</th>
               <th>Значение Поля</th>
             </tr>
@@ -48,7 +62,7 @@ function App() {
       </div>
 
       <div className="badge badge-primary total">
-        <span className='total-span'>Всего строк: {tableItems.length}</span>
+        <span className="total-span">Всего строк: {tableItems.length}</span>
       </div>
     </>
   );
