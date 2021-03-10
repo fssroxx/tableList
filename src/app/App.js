@@ -6,6 +6,7 @@ import Row from "../row";
 let id = 0;
 
 function App() {
+
   const [tableItems, setTableItems] = useState([]);
   const [targetValue, setTargetValue] = useState("");
 
