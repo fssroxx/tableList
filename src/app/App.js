@@ -1,6 +1,6 @@
 import "./App.scss";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Row from "../row";
 import Buttons from "../buttons";
 
@@ -12,17 +12,15 @@ function App() {
   const [clickCounter, setClickCounter] = useState(1);
   const [btns, setBtns] = useState([{ number: 1, selected: true }]);
 
-  useEffect(() => {
-    let n = Math.ceil(tableItems.length / 5);
-    console.log(n);
-    for (let i = 0; i < n; i++) {
-      const newBtn = {
-        number: n + 1,
-        selected: false,
-      };
-      setBtns([...btns, newBtn]);
-    }
-  }, [tableItems]);
+  const n = Math.ceil(tableItems.length / 5);
+  console.log(n);
+  for (let i = 0; i < n; i++) {
+    const newBtn = {
+      number: n + 1,
+      selected: false,
+    };
+    setBtns([...btns, newBtn]);
+  }
 
   console.log(btns);
   const addItem = () => {
