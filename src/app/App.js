@@ -3,15 +3,15 @@ import "./App.scss";
 import { useState } from "react";
 import Row from "../row";
 
+let id = 0;
+
 function App() {
   const [tableItems, setTableItems] = useState([]);
   const [targetValue, setTargetValue] = useState("");
 
-  let id = 0;
-
   const addItem = () => {
     const newItem = {
-      id: (id += 1),
+      id: ++id,
       value: targetValue,
     };
     setTableItems([...tableItems, newItem]);
@@ -19,8 +19,7 @@ function App() {
   };
 
   const handleSort = () => {
-    const newTableItems = tableItems.sort((a, b) => b.id - a.id);
-
+    const newTableItems = [...tableItems].sort((a, b) => b.id - a.id);
     setTableItems(newTableItems);
   };
 
