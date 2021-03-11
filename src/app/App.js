@@ -2,27 +2,41 @@ import "./App.scss";
 
 import { useState } from "react";
 import Row from "../row";
-import Buttons from "../buttons";
+import Pagination from "../pagination";
 
 let id = 0;
+
+function createPagination(n) {
+  let btns = [];
+  for (let i = 0; i < n; i++) {
+    const newBtn = {
+      number: i + 1,
+      selected: false,
+    };
+    btns = [...btns, newBtn];
+    console.log(btns);
+  }
+  return btns;
+}
 
 function App() {
   const [tableItems, setTableItems] = useState([]);
   const [targetValue, setTargetValue] = useState("");
   const [clickCounter, setClickCounter] = useState(1);
-  const [btns, setBtns] = useState([{ number: 1, selected: true }]);
-
   const n = Math.ceil(tableItems.length / 5);
-  console.log(n);
-  for (let i = 0; i < n; i++) {
-    const newBtn = {
-      number: n + 1,
-      selected: false,
-    };
-    setBtns([...btns, newBtn]);
-  }
+  const [btns, setBtns] = useState(createPagination(n));
+  const [buttonNum, setButtonNum] = useState(1);
 
-  console.log(btns);
+  console.log(buttonNum);
+
+  // const tableItemsSlice = () => {
+  //   const newArr = [...tableItems].slice(btns.number*5-5,btns.number*5);
+  //   setTableItems(newArr);
+  // };
+  const handleClick = (a) => {
+    setButtonNum(a);
+  };
+
   const addItem = () => {
     const newItem = {
       id: ++id,
@@ -30,10 +44,11 @@ function App() {
     };
     setTableItems([...tableItems, newItem]);
     setTargetValue("");
+    setBtns(createPagination(n));
   };
 
   const handleSort = () => {
-    console.log(clickCounter);
+    // console.log(clickCounter);
 
     if (clickCounter % 2 === 1) {
       const newTableItems = [...tableItems].sort((a, b) => b.id - a.id);
@@ -46,13 +61,15 @@ function App() {
   };
 
   const handleChange = (e) => setTargetValue(e.target.value);
-  console.log(tableItems);
+  // console.log(tableItems);
 
-  const view = tableItems.map((item, index) => (
-    <tr>
-      <Row tableItem={item} key={index} />
-    </tr>
-  ));
+  const view = tableItems
+    .slice(buttonNum * 5 - 5, buttonNum * 5)
+    .map((item, index) => (
+      <tr>
+        <Row tableItem={item} key={index} />
+      </tr>
+    ));
 
   return (
     <>
@@ -82,7 +99,9 @@ function App() {
         </table>
       </div>
 
-      <Buttons btns={btns} />
+      <div className='btns'>
+        <Pagination btns={btns} handleClick={handleClick} />
+      </div>
       <div className="badge badge-primary total">
         <span className="total-span">Всего строк: {tableItems.length}</span>
       </div>
