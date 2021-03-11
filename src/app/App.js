@@ -2,14 +2,27 @@ import "./App.scss";
 
 import { useState } from "react";
 import Row from "../row";
+import Buttons from "../buttons";
 
 let id = 0;
 
 function App() {
-
   const [tableItems, setTableItems] = useState([]);
   const [targetValue, setTargetValue] = useState("");
+  const [clickCounter, setClickCounter] = useState(1);
+  const [btns, setBtns] = useState([{ number: 1, selected: true }]);
 
+  const n = Math.ceil(tableItems.length / 5);
+  console.log(n);
+  for (let i = 0; i < n; i++) {
+    const newBtn = {
+      number: n + 1,
+      selected: false,
+    };
+    setBtns([...btns, newBtn]);
+  }
+
+  console.log(btns);
   const addItem = () => {
     const newItem = {
       id: ++id,
@@ -20,8 +33,16 @@ function App() {
   };
 
   const handleSort = () => {
-    const newTableItems = [...tableItems].sort((a, b) => b.id - a.id);
-    setTableItems(newTableItems);
+    console.log(clickCounter);
+
+    if (clickCounter % 2 === 1) {
+      const newTableItems = [...tableItems].sort((a, b) => b.id - a.id);
+      setTableItems(newTableItems);
+    } else {
+      const newTableItems = [...tableItems].sort((a, b) => a.id - b.id);
+      setTableItems(newTableItems);
+    }
+    setClickCounter((s) => s + 1);
   };
 
   const handleChange = (e) => setTargetValue(e.target.value);
@@ -61,6 +82,7 @@ function App() {
         </table>
       </div>
 
+      <Buttons btns={btns} />
       <div className="badge badge-primary total">
         <span className="total-span">Всего строк: {tableItems.length}</span>
       </div>
