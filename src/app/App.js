@@ -8,7 +8,7 @@ let id = 0;
 
 function createPagination(n) {
   let btns = [];
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n; ++i) {
     const newBtn = {
       number: i + 1,
       selected: false,
@@ -27,12 +27,7 @@ function App() {
   const [btns, setBtns] = useState(createPagination(n));
   const [buttonNum, setButtonNum] = useState(1);
 
-  console.log(buttonNum);
 
-  // const tableItemsSlice = () => {
-  //   const newArr = [...tableItems].slice(btns.number*5-5,btns.number*5);
-  //   setTableItems(newArr);
-  // };
   const handleClick = (a) => {
     setButtonNum(a);
   };
@@ -48,8 +43,6 @@ function App() {
   };
 
   const handleSort = () => {
-    // console.log(clickCounter);
-
     if (clickCounter % 2 === 1) {
       const newTableItems = [...tableItems].sort((a, b) => b.id - a.id);
       setTableItems(newTableItems);
@@ -61,7 +54,6 @@ function App() {
   };
 
   const handleChange = (e) => setTargetValue(e.target.value);
-  // console.log(tableItems);
 
   const view = tableItems
     .slice(buttonNum * 5 - 5, buttonNum * 5)
@@ -99,7 +91,7 @@ function App() {
         </table>
       </div>
 
-      <div className='btns'>
+      <div className="btns">
         <Pagination btns={btns} handleClick={handleClick} />
       </div>
       <div className="badge badge-primary total">
