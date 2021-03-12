@@ -1,6 +1,6 @@
 import "./App.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Row from "../row";
 import Pagination from "../pagination";
 
@@ -8,7 +8,7 @@ let id = 0;
 
 function createPagination(n) {
   let btns = [];
-  for (let i = 0; i < n; ++i) {
+  for (let i = 0; i < n; i++) {
     const newBtn = {
       number: i + 1,
       selected: false,
@@ -27,10 +27,13 @@ function App() {
   const [btns, setBtns] = useState(createPagination(n));
   const [buttonNum, setButtonNum] = useState(1);
 
-
   const handleClick = (a) => {
     setButtonNum(a);
   };
+
+  useEffect(() => {
+    setBtns(createPagination(n));
+  }, [n]);
 
   const addItem = () => {
     const newItem = {
@@ -39,7 +42,6 @@ function App() {
     };
     setTableItems([...tableItems, newItem]);
     setTargetValue("");
-    setBtns(createPagination(n));
   };
 
   const handleSort = () => {
