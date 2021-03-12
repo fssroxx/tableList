@@ -1,4 +1,10 @@
-![image](https://user-images.githubusercontent.com/63402014/110446898-b7321e00-80d0-11eb-8693-e2443cb4bc56.png)
+Таблица с пользовательской пагинацией и сортировкой по клику на столбец.
+
+![image](https://user-images.githubusercontent.com/63402014/110950763-4ea7a300-8355-11eb-9058-0f44d74931d1.png)
+
+![image](https://user-images.githubusercontent.com/63402014/110950937-8282c880-8355-11eb-8b8d-f1d134c9f639.png)
+
+
 
 
 # Getting Started with Create React App
