@@ -3,6 +3,7 @@ import "./App.scss";
 import { useEffect, useState } from "react";
 import Row from "../row";
 import Pagination from "../pagination";
+import Filter from "../filter";
 
 let id = 0;
 
@@ -44,6 +45,10 @@ function App() {
     setTargetValue("");
   };
 
+  const formFilterList = (list) => {
+    setTableItems(list);
+  };
+
   const handleSort = () => {
     if (clickCounter % 2 === 1) {
       const newTableItems = [...tableItems].sort((a, b) => b.id - a.id);
@@ -80,7 +85,7 @@ function App() {
           Добавить
         </button>
       </div>
-
+      <Filter tableItems={tableItems} formFilterList={formFilterList} />
       <div className="table-container">
         <table className="table">
           <thead>
