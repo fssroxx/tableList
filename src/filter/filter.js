@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-const Filter = ({ tableItems, formFilterList }) => {
+const Filter = ({ tableItems, formFilterList, showAll }) => {
   const [filterValue, setFilterValue] = useState("");
- 
 
   const filterChange = (e) => setFilterValue(e.target.value);
   console.log(filterValue);
@@ -20,12 +19,21 @@ const Filter = ({ tableItems, formFilterList }) => {
         value={filterValue}
         placeholder="что-нибудь отфитруем..."
       />
-
+      {/* <select>
+        <option>all</option>
+        <option>filtered</option>
+      </select> */}
       <button
         onClick={() => formFilterList(filterItems)}
         className="btn btn-success"
       >
-        Go!
+        Filtered
+      </button>
+      <button
+        onClick={showAll}
+        className="btn btn-warning"
+      >
+        ALL
       </button>
     </div>
   );

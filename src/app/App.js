@@ -27,6 +27,7 @@ function App() {
   const n = Math.ceil(tableItems.length / 5);
   const [btns, setBtns] = useState(createPagination(n));
   const [buttonNum, setButtonNum] = useState(1);
+  const [view, setView] = useState([]);
 
   const handleClick = (a) => {
     setButtonNum(a);
@@ -46,29 +47,35 @@ function App() {
   };
 
   const formFilterList = (list) => {
-    setTableItems(list);
+    setView(list);
+  };
+
+  const showAll = () => {
+    setView(tableItems);
   };
 
   const handleSort = () => {
     if (clickCounter % 2 === 1) {
-      const newTableItems = [...tableItems].sort((a, b) => b.id - a.id);
-      setTableItems(newTableItems);
+      const newTableItems = [...view].sort((a, b) => b.id - a.id);
+      setView(newTableItems);
     } else {
-      const newTableItems = [...tableItems].sort((a, b) => a.id - b.id);
-      setTableItems(newTableItems);
+      const newTableItems = [...view].sort((a, b) => a.id - b.id);
+      setView(newTableItems);
     }
     setClickCounter((s) => s + 1);
   };
 
   const handleChange = (e) => setTargetValue(e.target.value);
 
-  const view = tableItems
+  const viewTableItems = view
     .slice(buttonNum * 5 - 5, buttonNum * 5)
     .map((item, index) => (
       <tr>
         <Row tableItem={item} key={index} />
       </tr>
     ));
+
+ 
 
   return (
     <>
@@ -85,7 +92,11 @@ function App() {
           Добавить
         </button>
       </div>
-      <Filter tableItems={tableItems} formFilterList={formFilterList} />
+      <Filter
+        tableItems={tableItems}
+        formFilterList={formFilterList}
+        showAll={showAll}
+      />
       <div className="table-container">
         <table className="table">
           <thead>
@@ -94,7 +105,7 @@ function App() {
               <th>Значение Поля</th>
             </tr>
           </thead>
-          <tbody>{view}</tbody>
+          <tbody>{viewTableItems}</tbody>
         </table>
       </div>
 
