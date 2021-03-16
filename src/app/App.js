@@ -37,6 +37,10 @@ function App() {
     setBtns(createPagination(n));
   }, [n]);
 
+  useEffect(() => {
+    setView(tableItems);
+  }, [tableItems]);
+
   const addItem = () => {
     const newItem = {
       id: ++id,
@@ -74,8 +78,6 @@ function App() {
         <Row tableItem={item} key={index} />
       </tr>
     ));
-
- 
 
   return (
     <>
