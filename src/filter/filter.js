@@ -4,12 +4,15 @@ const Filter = ({ tableItems, formFilterList, showAll }) => {
   const [filterValue, setFilterValue] = useState("");
 
   const filterChange = (e) => setFilterValue(e.target.value);
+
   console.log(filterValue);
 
   const filterItems = tableItems.filter(
     (item) => item.value.includes(filterValue) === true
   );
-  console.log(filterItems);
+
+  const dis = () => (tableItems.length < 2 ? true : false);
+
   return (
     <div class="form-group">
       <input
@@ -19,20 +22,15 @@ const Filter = ({ tableItems, formFilterList, showAll }) => {
         value={filterValue}
         placeholder="что-нибудь отфитруем..."
       />
-      {/* <select>
-        <option>all</option>
-        <option>filtered</option>
-      </select> */}
+
       <button
         onClick={() => formFilterList(filterItems)}
+        disabled={dis()}
         className="btn btn-success"
       >
         Filtered
       </button>
-      <button
-        onClick={showAll}
-        className="btn btn-warning"
-      >
+      <button onClick={showAll} className="btn btn-warning">git push
         ALL
       </button>
     </div>
