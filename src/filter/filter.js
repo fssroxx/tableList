@@ -8,7 +8,7 @@ const Filter = ({ tableItems, formFilterList, showAll }) => {
   console.log(filterValue);
 
   const filterItems = tableItems.filter(
-    (item) => item.value.includes(filterValue) === true
+    (item) => item.value.includes(filterValue)
   );
 
   const dis = () => (tableItems.length < 2 ? true : false);
